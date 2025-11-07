@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Extension Blocker</title>
+  <style>
+    body { min-width: 200px; font-family: Arial, sans-serif; }
+    .warn { color: red; margin-top: 1em; }
+  </style>
+</head>
+<body>
+  <h2>School Extension Blocker</h2>
+  <div id="status">Checking extensions...</div>
+  <script>
+    chrome.runtime.sendMessage({ type: "checkBlockedExtensions" }, (response) => {
+      const status = document.getElementById('status');
+      if (response && response.blocked)
+        status.innerHTML = "<b class='warn'>Blocked extension detected.</b>";
+      else
+        status.innerText = "All clear. No blocked extensions detected.";
+    });
+  </script>
+</body>
+</html>
